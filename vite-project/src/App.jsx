@@ -5,6 +5,30 @@ import Feedback from "./components/Feedback/Feedback";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import "./App.css";
 
+const FEEDBACK_STORAGE_KEY = "goit-feedback-values";
+
+const getInitialFeedbackValues = () => {
+  const empty = { good: 0, neutral: 0, bad: 0 };
+
+  if (typeof window === "undefined") return empty;
+
+  try {
+    const raw = window.localStorage.getItem(FEEDBACK_STORAGE_KEY);
+    if (!raw) return empty;
+
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return empty;
+
+    return {
+      good: Number.isFinite(parsed.good) ? parsed.good : 0,
+      neutral: Number.isFinite(parsed.neutral) ? parsed.neutral : 0,
+      bad: Number.isFinite(parsed.bad) ? parsed.bad : 0,
+    };
+  } catch {
+    return empty;
+  }
+};
+
 const getInitialTheme = () => {
   if (typeof window === "undefined") return "light";
 
@@ -18,11 +42,19 @@ function App() {
 
   const [theme, setTheme] = useState(getInitialTheme);
 
-  const [values, setValues] = useState({ good: 0, neutral: 0, bad: 0 });
+  const [values, setValues] = useState(getInitialFeedbackValues);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(values));
+    } catch {
+      // ignore write errors (private mode / quota)
+    }
+  }, [values]);
 
   const handleToggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
