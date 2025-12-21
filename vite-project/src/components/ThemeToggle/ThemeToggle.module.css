@@ -1,0 +1,33 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-bg);
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease,
+    transform 120ms ease;
+}
+
+.button:hover {
+  border-color: rgba(100, 108, 255, 0.9);
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.icon {
+  flex: 0 0 auto;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.text {
+  line-height: 1;
+}

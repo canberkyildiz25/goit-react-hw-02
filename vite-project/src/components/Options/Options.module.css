@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto 20px;
+  max-width: 720px;
+}
+
+.button {
+  min-width: 110px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-bg-2);
+  color: inherit;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 180ms ease,
+    background 180ms ease;
+}
+
+.icon {
+  flex: 0 0 auto;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.label {
+  line-height: 1;
+}
+
+.button:hover {
+  border-color: rgba(100, 108, 255, 0.9);
+  background: rgba(100, 108, 255, 0.08);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
